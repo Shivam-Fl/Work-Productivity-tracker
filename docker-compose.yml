@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_PATH=/data/work-tracker.db
+      - DEFAULT_TIMEZONE=UTC
+      - SHIFT_CRON=0 18 * * 1-5
+    volumes:
+      - app_data:/data
+
+volumes:
+  app_data:
