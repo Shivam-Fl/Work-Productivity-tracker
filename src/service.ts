@@ -6,6 +6,7 @@ import { normalizeEvents } from './pipeline/normalize';
 import { config } from './config';
 import { makeIdempotencyKey, encryptSecret } from './security';
 import { IntegrationAccount, IntegrationSource, KnowledgeEntry, ReportDraft, User } from './types';
+import { MANUAL_ADDITION_PROMPT } from './constants';
 import { toIsoNow } from './utils';
 
 export function createUser(input: { email: string; displayName: string; timezone?: string; autoTriggerEnabled?: boolean }): User {
@@ -359,7 +360,7 @@ function mapReport(row: any): ReportDraft {
     summary: row.summary,
     sections: JSON.parse(row.sections_json),
     timeline: JSON.parse(row.timeline_json),
-    manualPrompt: "Anything missing or untracked from today that you want to add?",
+    manualPrompt: MANUAL_ADDITION_PROMPT,
     requiresUserInput: true,
     createdAt: row.created_at,
     updatedAt: row.updated_at
